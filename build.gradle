@@ -1,0 +1,44 @@
+group 'com.oliver.spring.springboot.rabbitmq'
+version = '0.0.1-SNAPSHOT'
+
+buildscript {
+	ext {
+		springBootVersion = '1.5.16.RELEASE'
+	}
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+ext {
+	springCloudVersion = 'Edgware.SR2'
+}
+
+springBoot {
+    mainClass = "com.jorgehernandezramirez.spring.springboot.rabbitmq.Application"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-amqp")
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-hystrix")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
